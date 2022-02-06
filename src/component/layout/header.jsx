@@ -1,3 +1,0 @@
-// import
-
-// const { Header } = Layout;
