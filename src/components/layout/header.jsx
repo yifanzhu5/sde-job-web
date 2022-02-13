@@ -3,35 +3,35 @@
 // const { Header } = Layout;
 
 import { PageHeader } from 'antd';
+import {Menu} from 'antd';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 
-const routes = [
-    {
-        path: 'index',
-        breadcrumbName: 'First-level Menu',
-    },
-    {
-        path: 'first',
-        breadcrumbName: 'Second-level Menu',
-    },
-    {
-        path: 'second',
-        breadcrumbName: 'Third-level Menu',
-    },
-];
+const {SubMenu} = Menu;
 
-const Header = () => {
+// const state = {
+//     current: 'mail',
+//   };
+
+// const handleClick = (e) => {
+//     console.log('click ', e);
+//     this.setState({ current: e.key });
+//   };
+
+const CustomHeader = () => {
+    // const { current } = this.state;
+    //  onClick={this.handleClick} selectedKeys={[current]}
     return (
-        //         <PageHeader
-        //     className="site-page-header"
-        //     title="Title"
-        //     breadcrumb={{ routes }}
-        //     subTitle="This is a subtitle"
-        //   />
-        <PageHeader
-            className="page-header"
-            title="SDE-job accumulate"
-        />  
+      <Menu mode="horizontal">
+        <Menu.Item key="mail" icon={<MailOutlined />}>
+            Mail us
+            </Menu.Item>
+        <Menu.Item key="alipay">
+            Change Routes
+          <a href="https://ant.design" target="_blank" rel="noopener noreferrer" />
+        </Menu.Item>
+      </Menu>
     );
 };
 
-export default Header;
+
+export default CustomHeader;

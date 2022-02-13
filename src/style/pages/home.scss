@@ -1,0 +1,31 @@
+.custom-body{
+    // width：100%;
+    display:flex;
+    flex-wrap:nowrap;
+
+    height:1000px;
+    max-width: 1260px;
+    // min-width: ;
+    margin: 0 100px;
+    // overflow: hidden;
+}
+
+.left-col{
+    background-color: antiquewhite;
+    border-right: 1px solid #DCDCDC;
+    width: 30%;
+    height:100%;
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-direction: column;
+}
+
+.right-col{
+    background-color: aliceblue;
+    display: flex;
+    padding:10px 30px;
+    width: 70%;
+    height:100%;
+}

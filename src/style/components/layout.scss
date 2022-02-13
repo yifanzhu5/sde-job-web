@@ -1,3 +1,21 @@
 .page-header{
-    border-bottom: 2px solid rgb(10, 10, 10);
+    border-bottom: 2px solid #DCDCDC;
+    background-color: hsl(210,8%,97.5%);
+}
+// .body{
+//     margin:0;
+//     padding:0;
+//     height:100%;
+// }
+.custom-footer{
+    border-top: 1px solid #DCDCDC;
+    position: fixed; 
+    bottom: 0;
+    width: 100%;
+    color:#999999;
+    text-align: center;
+    background-color: hsl(210,8%,97.5%);
+}
+.custom-footer > p {
+    margin: 5px;
 }
