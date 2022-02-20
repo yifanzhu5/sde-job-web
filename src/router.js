@@ -1,11 +1,18 @@
 import React from "react";
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./page/App/home";
+import PageError from "./page/App/404";
+
+import CustomHeader from './components/layout/header.jsx';
+import CustomFooter from './components/layout/footer.jsx';
+
 class Router extends React.Component {
   render() {
     return (
       <HashRouter>
+        <CustomHeader></ CustomHeader>
         <Home />
+        {/* <PageError /> */}
         {/* <Routes>
         <Route exact path="/login" component={Login} /> 
            <Route
@@ -15,6 +22,7 @@ class Router extends React.Component {
             }}
           />
         </Routes> */}
+        <CustomFooter></CustomFooter>
       </HashRouter>
     );
   }
