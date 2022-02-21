@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import { Card, Divider, Tooltip, Space} from 'antd';
 import { LinkOutlined, MoreOutlined, BankOutlined, BankFilled, GlobalOutlined, FieldTimeOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
@@ -60,5 +61,6 @@ class JobCard extends React.Component {
       </a>
     )
   }
+
 };
 export default JobCard;
