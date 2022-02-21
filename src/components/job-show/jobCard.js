@@ -34,10 +34,10 @@ class JobCard extends React.Component {
                     {this.props.company}
                   </div>
                 </Tooltip>
-                <Tooltip title="locations">
+                <Tooltip title="Cities">
                   <div>
                     <EnvironmentOutlined />
-                    {this.props.locations}
+                    {this.props.cities}
                   </div>
                 </Tooltip>
                 </Space>

@@ -16,7 +16,7 @@ const companyOptions = [
   // { label: 'Others', value: 'Others' }
 ];
 
-const locationOptions = [
+const cityOptions = [
   { label: 'Remote', value: 'Remote' },
   { label: 'Vancouver', value: 'Vancouver' },
   { label: 'Toronto', value: 'Toronto' },
@@ -31,7 +31,7 @@ class Home extends React.Component {
     current_page: 1,
     count: 0,
     keywords: '',
-    locations: [],
+    cities: [],
     companys: [],
     publish_time: null,
     has_remote: null,
@@ -45,18 +45,18 @@ class Home extends React.Component {
   onFilterSubmit = () => {
     // Locations array have Remote.
     // submitted location should not inclucde Remote
-    let location_submit = [];
-    Object.assign(location_submit, this.state.locations);
-    if (location_submit.includes('Remote')) {
+    let city_submit = [];
+    Object.assign(city_submit, this.state.cities);
+    if (city_submit.includes('Remote')) {
       this.setState({ has_remote: true })
-      let index_i = location_submit.indexOf('Remote')
-      location_submit.splice(index_i, 1)
+      let index_i = city_submit.indexOf('Remote')
+      city_submit.splice(index_i, 1)
     } else {
       this.setState({ has_remote: null })
     }
     const params = {
       // "keywords": this.state.keywords,
-      // "locations": location_submit,
+      // "cities": cities_submit,
       "companys": this.state.companys,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
@@ -87,13 +87,13 @@ class Home extends React.Component {
       onFinish={this.onFilterSubmit}
     >
       <Form.Item
-        label="Locations"
-        name="locations"
+        label="cities"
+        name="cities"
       >
         <Checkbox.Group
-          options={locationOptions}
+          options={cityOptions}
           onChange={(e) => {
-            this.setState({ locations: e })
+            this.setState({ cities: e })
           }}
         />
       </Form.Item>
@@ -120,11 +120,11 @@ class Home extends React.Component {
   jobCards(page_size) {
     return <div class="job-cards">
       {this.state.jobs.map((item) => {
-        console.log(item)
+        // locations cities
         return <JobCard
           title={item.title}
           company={item.company}
-          locations={item.locations}
+          cities={item.locations}
           from_url={item.from_url}
           apply_url={item.apply_url}
           publish_time={item.publish_time}
