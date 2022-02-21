@@ -35,27 +35,44 @@ class Home extends React.Component {
     companys: [],
     update_time: null,
     has_remote: false,
+    jobs: [],
   };
 
+  componentDidMount(){
+    this.onFilterSubmit()
+  }
+
   onFilterSubmit = () => {
+    // Locations array have Remote.
+    // submitted location should not inclucde Remote
+    let location_submit = [];
+    Object.assign(location_submit, this.state.locations);
+    if (location_submit.includes('Remote')) {
+      this.setState({ has_remote: true })
+      let index_i = location_submit.indexOf('Remote')
+      location_submit.splice(index_i, 1)
+    } else {
+      this.setState({ has_remote: false })
+    }
     const params = {
-      "keywords": this.state.keywords,
-      // "locations": this.state.locations,
+      // "keywords": this.state.keywords,
+      // "locations": location_submit,
+      // "companys": this.state.companys,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
+      "has_remote": this.state.has_remote
     }
+    console.log(params)
     axios.post('http://localhost:8080/api/v1/jobs/search', params).then((res) => {
-      this.setState({'page_size': res.data.page_size})
+      this.setState({
+        'jobs': res.data.jobs,
+        'count': res.data.count
+      })
+      // this.setState()
       console.log('success', res)
-    }).catch((data)=>{
+    }).catch((data) => {
       console.log(data)
     })
-    // request({
-    //   url: `/v1/jobs`,
-    //   method: 'post',
-    //   data: ,
-    // }).then({
-    // })
   };
 
   onJobChange = () => {
@@ -75,14 +92,7 @@ class Home extends React.Component {
         <Checkbox.Group
           options={locationOptions}
           onChange={(e) => {
-            if (e.includes('Remote')) {
-              // Only canbe delete when submit
-              this.setState({ has_remote: true })
-              // let index_i = e.indexOf('Remote')
-              // e.splice(index_i, 1)
-            };
             this.setState({ locations: e })
-            console.log('eee', this.state.locations)
           }}
         />
       </Form.Item>
@@ -108,6 +118,19 @@ class Home extends React.Component {
 
   jobCards(page_size) {
     return <div class="job-cards">
+      {this.state.jobs.map((item) => {
+        console.log(item)
+        return <JobCard
+          title={item.title}
+          company={item.company}
+          locations={item.locations}
+          from_url={item.from_url}
+          apply_url={item.apply_url}
+          update={item.update_time}
+          content={item.description}
+        />
+      })
+      }
       <Pagination
         current={this.state.current_page}
         total={this.state.count}
