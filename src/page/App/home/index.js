@@ -13,7 +13,7 @@ const companyOptions = [
   { label: 'Google', value: 'Google' },
   { label: 'Amazon', value: 'Amazon' },
   { label: 'Shopify', value: 'Shopify' },
-  { label: 'Others', value: 'Others' }
+  // { label: 'Others', value: 'Others' }
 ];
 
 const locationOptions = [
@@ -40,12 +40,13 @@ class Home extends React.Component {
   onFilterSubmit = () => {
     const params = {
       "keywords": this.state.keywords,
-      "locations": this.state.locations,
+      // "locations": this.state.locations,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
     }
-    axios.post('https://localhost:8080/v1/jobs', params).then((data) => {
-      console.log('success', data)
+    axios.post('http://localhost:8080/api/v1/jobs/search', params).then((res) => {
+      this.setState({'page_size': res.data.page_size})
+      console.log('success', res)
     }).catch((data)=>{
       console.log(data)
     })
@@ -111,7 +112,6 @@ class Home extends React.Component {
         title="Job Title"
         content={<p>this is content</p>}
         apply_url="https://careers.google.com/jobs/results/111150522284548806-technical-solutions-consultant-telecom-carriers/?company=Google&company=Google%20Fiber&company=YouTube&distance=50&employment_type=FULL_TIME&gclid=CjwKCAiAx8KQBhAGEiwAD3EiP56ZjKDI3Ae4voCs3toxNvkmDy26gJfO43rSWaSdjdk2vxfVSU8HqBoCW88QAvD_BwE&gclsrc=aw.ds&hl=en_US&jlo=en_US&location=Canada&q=&sort_by=relevance&src=Online%2FHouse%20Ads%2FBKWS"
-
       />
 
       <Pagination
