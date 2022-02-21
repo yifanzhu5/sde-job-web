@@ -33,8 +33,8 @@ class Home extends React.Component {
     keywords: '',
     locations: [],
     companys: [],
-    update_time: null,
-    has_remote: false,
+    publish_time: null,
+    has_remote: null,
     jobs: [],
   };
 
@@ -52,12 +52,12 @@ class Home extends React.Component {
       let index_i = location_submit.indexOf('Remote')
       location_submit.splice(index_i, 1)
     } else {
-      this.setState({ has_remote: false })
+      this.setState({ has_remote: null })
     }
     const params = {
       // "keywords": this.state.keywords,
       // "locations": location_submit,
-      // "companys": this.state.companys,
+      "companys": this.state.companys,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
       "has_remote": this.state.has_remote
@@ -75,8 +75,9 @@ class Home extends React.Component {
     })
   };
 
-  onJobChange = () => {
-    console.log('onjobchange')
+  onJobChange = (pg) => {
+    this.setState({current_page: pg})
+    this.onFilterSubmit()
   };
 
   formFilter() {
@@ -126,7 +127,7 @@ class Home extends React.Component {
           locations={item.locations}
           from_url={item.from_url}
           apply_url={item.apply_url}
-          update={item.update_time}
+          publish_time={item.publish_time}
           content={item.description}
         />
       })

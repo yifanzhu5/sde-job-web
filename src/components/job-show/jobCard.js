@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Divider, Tooltip } from 'antd';
+import { Card, Divider, Tooltip, Space} from 'antd';
 import { LinkOutlined, MoreOutlined, BankOutlined, BankFilled, GlobalOutlined, FieldTimeOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
 class JobCard extends React.Component {
@@ -9,9 +9,8 @@ class JobCard extends React.Component {
   //
   render() {
     return (
-      <a target="_blank" href={this.props.from_url}>
+      <a class="job-card" target="_blank" href={this.props.from_url}>
         <Card
-          class={"job-card"}
           hoverable="true"
         >
           <div class={"job-card-head"}>
@@ -26,31 +25,36 @@ class JobCard extends React.Component {
             </div>
 
             <div className="job-card-head-info">
-              <Tooltip title="company">
-                <div>
-                  <BankOutlined />
-                  {this.props.company}
-                </div>
-              </Tooltip>
-              <Tooltip title="locations">
-                <div>
-                  <EnvironmentOutlined />
-                  {this.props.locations}
-                </div>
-              </Tooltip>
-              <Tooltip title="update_time">
-                <div>
-                  <FieldTimeOutlined />
-                  {this.props.update}
-                </div>
-              </Tooltip>
+              <div class={"job-card-head-info-layer1"}>
+                <Space size="small">
+                <Tooltip title="company">
+                  <div>
+                    <BankOutlined />
+                    {this.props.company}
+                  </div>
+                </Tooltip>
+                <Tooltip title="locations">
+                  <div>
+                    <EnvironmentOutlined />
+                    {this.props.locations}
+                  </div>
+                </Tooltip>
+                </Space>
+              </div>
+              {(this.props.publish_time != "") &&
+                <Tooltip title="Publish time">
+                  <div>
+                    <FieldTimeOutlined />
+                    {new Date(this.props.publish_time * 1000).toLocaleDateString()}
+                  </div>
+                </Tooltip>}
             </div>
 
 
           </div>
 
           <div class="job-card-content">
-            <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+            <div dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
           </div>
         </Card>
       </a>
