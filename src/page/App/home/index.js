@@ -108,12 +108,6 @@ class Home extends React.Component {
 
   jobCards(page_size) {
     return <div class="job-cards">
-      <JobCard
-        title="Job Title"
-        content={<p>this is content</p>}
-        apply_url="https://careers.google.com/jobs/results/111150522284548806-technical-solutions-consultant-telecom-carriers/?company=Google&company=Google%20Fiber&company=YouTube&distance=50&employment_type=FULL_TIME&gclid=CjwKCAiAx8KQBhAGEiwAD3EiP56ZjKDI3Ae4voCs3toxNvkmDy26gJfO43rSWaSdjdk2vxfVSU8HqBoCW88QAvD_BwE&gclsrc=aw.ds&hl=en_US&jlo=en_US&location=Canada&q=&sort_by=relevance&src=Online%2FHouse%20Ads%2FBKWS"
-      />
-
       <Pagination
         current={this.state.current_page}
         total={this.state.count}

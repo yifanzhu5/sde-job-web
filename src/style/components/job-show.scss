@@ -1,9 +1,28 @@
-.card-head{
-    display:flex;
-    flex: row;
-    justify-content: space-between;
-    &-title{
-        margin:0;
-    }
-}
+.job-card{
 
+    &-head{
+        border-bottom:1px solid gray ;
+        &-link{
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &-title{
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+        &-info{
+            margin-bottom: 10px;
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &-content{
+        margin:10px 0;
+        height: 85px;
+        overflow:scroll;
+    }
+
+}
