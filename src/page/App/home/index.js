@@ -55,8 +55,11 @@ class Home extends React.Component {
       this.setState({ has_remote: null })
     }
     const params = {
-      // "keywords": this.state.keywords,
-      // "cities": cities_submit,
+      //TODO
+      //"keywords": this.state.keywords,
+      //TODO others
+      "cities": this.state.cities,
+      //
       "companys": this.state.companys,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
@@ -124,7 +127,7 @@ class Home extends React.Component {
         return <JobCard
           title={item.title}
           company={item.company}
-          cities={item.locations}
+          cities={item.city}
           from_url={item.from_url}
           apply_url={item.apply_url}
           publish_time={item.publish_time}
