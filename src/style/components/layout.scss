@@ -6,6 +6,10 @@
 .custom-header{
     display: flex;
     justify-content: flex-start;
+    position: sticky;
+    top: 0px;
+    z-index: 90;
+    background-color: white;
 }
 
 .custom-header-left{
@@ -13,12 +17,12 @@
 }
 
 .custom-header-mid{
-    //flex-grow: 10;
+    flex-grow: 1;
 }
 
 .custom-header-right{
     display: flex;
-    flex-grow: 1;
+    flex-grow: 10;
     justify-content: flex-end;
     margin: 10px;
 }
