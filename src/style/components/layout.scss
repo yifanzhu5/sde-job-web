@@ -1,12 +1,28 @@
-.page-header{
-    border-bottom: 2px solid #DCDCDC;
-    background-color: hsl(210,8%,97.5%);
-}
 // .body{
 //     margin:0;
 //     padding:0;
 //     height:100%;
 // }
+.custom-header{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.custom-header-left{
+    margin: 10px;
+}
+
+.custom-header-mid{
+    //flex-grow: 10;
+}
+
+.custom-header-right{
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
 .custom-footer{
     border-top: 1px solid #DCDCDC;
     position: fixed; 
