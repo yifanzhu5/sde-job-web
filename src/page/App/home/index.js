@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Divider, Pagination } from 'antd';
+import { Form, Input, Button, Checkbox, Divider, Pagination,Space } from 'antd';
 import { Row, Col } from 'antd';
 
 import axios from 'axios'
@@ -119,10 +119,10 @@ class Home extends React.Component {
   };
 
   jobCards(page_size) {
-    return <div class="job-cards">
+    return <div class="job-cards"><Space size={"large"} direction={"vertical"}>
       {this.state.jobs.map((item) => {
         // locations cities
-        return <JobCard
+        return<JobCard
           title={item.title}
           company={item.company}
           cities={item.city}
@@ -132,7 +132,7 @@ class Home extends React.Component {
           content={item.description}
         />
       })
-      }
+      }</Space>
       <Pagination
         current={this.state.current_page}
         total={this.state.count}
