@@ -13,7 +13,7 @@ const companyOptions = [
   { label: 'Google', value: 'Google' },
   { label: 'Amazon', value: 'Amazon' },
   { label: 'Shopify', value: 'Shopify' },
-  // { label: 'Others', value: 'Others' }
+  { label: 'Others', value: 'others' }
 ];
 
 const cityOptions = [
@@ -22,7 +22,7 @@ const cityOptions = [
   { label: 'Toronto', value: 'Toronto' },
   { label: 'Montreal', value: 'Montreal' },
   { label: 'Ottawa', value: 'Ottawa' },
-  { label: 'Others', value: 'Others' }
+  { label: 'Others', value: 'others' }
 ];
 
 class Home extends React.Component {
@@ -55,10 +55,8 @@ class Home extends React.Component {
       this.setState({ has_remote: null })
     }
     const params = {
-      //TODO
-      //"keywords": this.state.keywords,
-      //TODO others
-      "cities": this.state.cities,
+      "keywords": this.state.keywords,
+      "cities": city_submit,
       //
       "companys": this.state.companys,
       "page_size": this.state.page_size,
@@ -164,8 +162,9 @@ class Home extends React.Component {
               onChange={(e) => {
                 this.setState({ keywords: e.target.value });
               }}
-              onSearch={() => {
-                console.log(this.state.keywords)
+              onSearch={(e) => {
+                this.setState({keywords: e})
+                this.onFilterSubmit()
               }}
             />
             <Divider />
