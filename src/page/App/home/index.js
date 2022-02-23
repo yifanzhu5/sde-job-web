@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Divider, Pagination,Space } from 'antd';
+import { Form, Input, Button, Checkbox, Divider, Pagination, Space } from 'antd';
 import { Row, Col } from 'antd';
 
 import axios from 'axios'
 // import {request} from '../../../utils/request'
 
 import JobCard from "../../../components/job-show/jobCard";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const { Search } = Input;
 
@@ -29,6 +29,11 @@ const cityOptions = [
 ];
 
 class Home extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     page_size: 20,
     current_page: 1,
@@ -41,14 +46,15 @@ class Home extends React.Component {
     jobs: [],
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getData()
+    console.log('123122',this.props.history)
   }
 
-  getData(){
+  getData=()=>{
     // Locations array have Remote.
     // submitted location should not inclucde Remote
-    let city_submit = [];
+    let city_submit= [];
     Object.assign(city_submit, this.state.cities);
     if (city_submit.includes('Remote')) {
       this.setState({ has_remote: true })
@@ -57,6 +63,7 @@ class Home extends React.Component {
     } else {
       this.setState({ has_remote: null })
     }
+    console.log('this', this)
     const params = {
       "keywords": this.state.keywords,
       "cities": city_submit,
@@ -72,14 +79,13 @@ class Home extends React.Component {
       })
       console.log('success', res)
     }).catch((data) => {
-      console.log(data)
+      console.log('error', data)
     })
-  }
+  };
 
 
   onJobChange = (pg) => {
-    //console.log('11111', pg)
-    this.setState({current_page: pg},()=>{
+    this.setState({ current_page: pg }, () => {
       this.getData()
     })
   };
@@ -124,7 +130,7 @@ class Home extends React.Component {
     return <div class="job-cards"><Space size={"large"} direction={"vertical"}>
       {this.state.jobs.map((item) => {
         // locations cities
-        return<JobCard
+        return <JobCard
           title={item.title}
           company={item.company}
           cities={item.city}
@@ -165,8 +171,9 @@ class Home extends React.Component {
                 this.setState({ keywords: e.target.value });
               }}
               onSearch={(e) => {
-                this.setState({keywords: e})
-                this.onFilterSubmit()
+                this.setState({ keywords: e },()=>{
+                  this.getData()
+                })
               }}
             />
             <Divider />
