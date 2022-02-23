@@ -6,6 +6,7 @@ import axios from 'axios'
 // import {request} from '../../../utils/request'
 
 import JobCard from "../../../components/job-show/jobCard";
+import {Link} from "react-router-dom";
 
 const { Search } = Input;
 
