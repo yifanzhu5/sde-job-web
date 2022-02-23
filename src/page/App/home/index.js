@@ -42,10 +42,10 @@ class Home extends React.Component {
   };
 
   componentDidMount(){
-    this.onFilterSubmit()
+    this.getData()
   }
 
-  onFilterSubmit = () => {
+  getData(){
     // Locations array have Remote.
     // submitted location should not inclucde Remote
     let city_submit = [];
@@ -60,35 +60,34 @@ class Home extends React.Component {
     const params = {
       "keywords": this.state.keywords,
       "cities": city_submit,
-      //
       "companys": this.state.companys,
       "page_size": this.state.page_size,
       "current_page": this.state.current_page,
       "has_remote": this.state.has_remote
     }
-    console.log(params)
     axios.post('http://localhost:8080/api/v1/jobs/search', params).then((res) => {
       this.setState({
         'jobs': res.data.jobs,
-        'count': res.data.count
+        'count': res.data.count,
       })
-      // this.setState()
       console.log('success', res)
     }).catch((data) => {
       console.log(data)
     })
-  };
+  }
+
 
   onJobChange = (pg) => {
-    this.setState({current_page: pg})
-    this.onFilterSubmit()
+    //console.log('11111', pg)
+    this.setState({current_page: pg},()=>{
+      this.getData()
+    })
   };
 
   formFilter() {
     return <Form
-      // form={form}
       layout="vertical"
-      onFinish={this.onFilterSubmit}
+      onFinish={this.getData}
     >
       <Form.Item
         label="cities"
