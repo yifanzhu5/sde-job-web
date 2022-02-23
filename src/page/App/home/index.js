@@ -102,7 +102,7 @@ class Home extends React.Component {
         <Checkbox.Group
           options={cityOptions}
           onChange={(e) => {
-            this.setState({ cities: e })
+            this.setState({ cities: e,current_page:1})
           }}
         />
       </Form.Item>
@@ -114,7 +114,7 @@ class Home extends React.Component {
         <Checkbox.Group
           options={companyOptions}
           onChange={(e) => {
-            this.setState({ companys: e })
+            this.setState({ companys: e, current_page:1})
           }}
         />
       </Form.Item>
@@ -171,7 +171,7 @@ class Home extends React.Component {
                 this.setState({ keywords: e.target.value });
               }}
               onSearch={(e) => {
-                this.setState({ keywords: e },()=>{
+                this.setState({ keywords: e ,current_page:1},()=>{
                   this.getData()
                 })
               }}
