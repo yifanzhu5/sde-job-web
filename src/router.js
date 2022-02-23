@@ -9,15 +9,15 @@ import CustomFooter from './components/layout/footer.js';
 const routes = [
     {
         path: "/jobs",
-        component: <Home />
+        component: Home
     },
     {
         path: "/companies",
-        component: <Home />
+        component: Home
     },
     {
         path: "/*",
-        component: <PageError />
+        component: PageError
     },
 
 ];
@@ -61,11 +61,8 @@ class Router extends React.Component {
                 <ScrollToTop>
                     <CustomHeader></ CustomHeader>
                     <Switch>
-
                         {routes.map((route) => (
-                            <Route path={route.path}>
-                                {route.component}
-                            </Route>
+                            <Route {...route} />
                         ))}
                     </Switch>
                     <CustomFooter></CustomFooter>

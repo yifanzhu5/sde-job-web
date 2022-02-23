@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Form, Input, Button, Checkbox, Divider, Pagination, Space } from 'antd';
-import { Row, Col } from 'antd';
 
 import axios from 'axios'
 // import {request} from '../../../utils/request'
 
 import JobCard from "../../../components/job-show/jobCard";
-import { Link } from "react-router-dom";
 
 const { Search } = Input;
 
@@ -48,7 +46,6 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.getData()
-    console.log('123122',this.props.history)
   }
 
   getData=()=>{
@@ -63,7 +60,7 @@ class Home extends React.Component {
     } else {
       this.setState({ has_remote: null })
     }
-    console.log('this', this)
+    console.log('history--', this.props)
     const params = {
       "keywords": this.state.keywords,
       "cities": city_submit,
@@ -77,7 +74,6 @@ class Home extends React.Component {
         'jobs': res.data.jobs,
         'count': res.data.count,
       })
-      console.log('success', res)
     }).catch((data) => {
       console.log('error', data)
     })
