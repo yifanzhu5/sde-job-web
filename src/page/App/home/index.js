@@ -14,6 +14,7 @@ const companyOptions = [
   { label: 'Google', value: 'Google' },
   { label: 'Amazon', value: 'Amazon' },
   { label: 'Shopify', value: 'Shopify' },
+  { label: 'Microsoft', value: 'Microsoft' },
   { label: 'Others', value: 'others' }
 ];
 
@@ -23,6 +24,7 @@ const cityOptions = [
   { label: 'Toronto', value: 'Toronto' },
   { label: 'Montreal', value: 'Montreal' },
   { label: 'Ottawa', value: 'Ottawa' },
+  { label: 'Waterloo', value: 'Waterloo' },
   { label: 'Others', value: 'others' }
 ];
 
