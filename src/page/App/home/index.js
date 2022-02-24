@@ -1,6 +1,6 @@
 import React from "react";
 import Qs from 'qs'
-import { Form, Input, Button, Checkbox, Divider, Pagination, Space } from 'antd';
+import { Form, Input, Button, Checkbox, Divider, Pagination, Space, BackTop } from 'antd';
 
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -55,12 +55,9 @@ class Home extends React.Component {
       companys: query.get('companys') || [],
       has_remote: query.get('has_remote') || null,
     }, () => {
-      console.log('route', this.state.companys)
-      console.log(query.get('companys'))
       this.getData()
     }
     )
-
   }
 
   getData = () => {
@@ -94,6 +91,7 @@ class Home extends React.Component {
         'jobs': res.data.jobs,
         'count': res.data.count,
       })
+      document.documentElement.scrollTo(0,0)
     }).catch((data) => {
       console.log('error', data)
     })
@@ -171,6 +169,13 @@ class Home extends React.Component {
       />
     </div>
   }
+
+  // componentWillReceiveProps(nextProps){
+    
+  //   if(nextProps.location.search!=this.props.location.search){
+  //     console.log('will', nextProps)
+  //   }
+  // }
 
   componentDidMount() {
     this.getRouteData()
