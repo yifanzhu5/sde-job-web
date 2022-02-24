@@ -8,7 +8,6 @@ const PageError = (props) => {
   }
 
   return (
-    // TODO: combine button with router
     <Result
       status="404"
       title="404"

@@ -1,7 +1,9 @@
 import React from "react";
+import Qs from 'qs'
 import { Form, Input, Button, Checkbox, Divider, Pagination, Space } from 'antd';
 
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 // import {request} from '../../../utils/request'
 
 import JobCard from "../../../components/job-show/jobCard";
@@ -36,22 +38,35 @@ class Home extends React.Component {
     page_size: 20,
     current_page: 1,
     count: 0,
-    keywords: '',
+    keywords: null,
     cities: [],
     companys: [],
-    publish_time: null,
     has_remote: null,
     jobs: [],
   };
 
-  componentDidMount() {
-    this.getData()
+  getRouteData = () => {
+    const query = new URLSearchParams(this.props.location.search)
+    this.setState({
+      page_size: query.get('page_size') || 20,
+      current_page: query.get('current_page') || 1,
+      keywords: query.get('keywords') || null,
+      cities: query.get('cities') || [],
+      companys: query.get('companys') || [],
+      has_remote: query.get('has_remote') || null,
+    }, () => {
+      console.log('route', this.state.companys)
+      console.log(query.get('companys'))
+      this.getData()
+    }
+    )
+
   }
 
-  getData=()=>{
+  getData = () => {
     // Locations array have Remote.
     // submitted location should not inclucde Remote
-    let city_submit= [];
+    let city_submit = [];
     Object.assign(city_submit, this.state.cities);
     if (city_submit.includes('Remote')) {
       this.setState({ has_remote: true })
@@ -60,7 +75,6 @@ class Home extends React.Component {
     } else {
       this.setState({ has_remote: null })
     }
-    console.log('history--', this.props)
     const params = {
       "keywords": this.state.keywords,
       "cities": city_submit,
@@ -69,6 +83,12 @@ class Home extends React.Component {
       "current_page": this.state.current_page,
       "has_remote": this.state.has_remote
     }
+    const search_str = Qs.stringify(params, { skipNulls: true })
+    let ppath = {
+      pathname: '/jobs',
+      search: search_str
+    }
+    this.props.history.push(ppath)
     axios.post('http://localhost:8080/api/v1/jobs/search', params).then((res) => {
       this.setState({
         'jobs': res.data.jobs,
@@ -98,7 +118,7 @@ class Home extends React.Component {
         <Checkbox.Group
           options={cityOptions}
           onChange={(e) => {
-            this.setState({ cities: e,current_page:1})
+            this.setState({ cities: e, current_page: 1 })
           }}
         />
       </Form.Item>
@@ -110,7 +130,7 @@ class Home extends React.Component {
         <Checkbox.Group
           options={companyOptions}
           onChange={(e) => {
-            this.setState({ companys: e, current_page:1})
+            this.setState({ companys: e, current_page: 1 })
           }}
         />
       </Form.Item>
@@ -152,6 +172,10 @@ class Home extends React.Component {
     </div>
   }
 
+  componentDidMount() {
+    this.getRouteData()
+  }
+
   render() {
     return (
       <div class="custom-body">
@@ -167,7 +191,7 @@ class Home extends React.Component {
                 this.setState({ keywords: e.target.value });
               }}
               onSearch={(e) => {
-                this.setState({ keywords: e ,current_page:1},()=>{
+                this.setState({ keywords: e, current_page: 1 }, () => {
                   this.getData()
                 })
               }}
