@@ -8,25 +8,41 @@ import {MailOutlined, AppstoreOutlined, SettingOutlined, LinkOutlined} from '@an
 import React from "react";
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import {Link} from 'react-router-dom'
 
 const {SubMenu} = Menu;
 
 class CustomHeader extends React.Component {
+
+    state = {
+        current: 'jobs',
+    };
+
+    handleClick = e => {
+        this.setState({ current: e.key },()=>{
+        });
+    };
+
     render() {
+        const { current } = this.state;
         return (
             <div class={"custom-header"}>
                 <div class={"custom-header-left"}>
                     CASDEJOBS
                 </div>
                 <div class={"custom-header-mid"}>
-                    <Menu mode="horizontal">
-                        <Menu.Item key="mail">
-                            Home
-                        </Menu.Item>
-                        <Menu.Item key="alipay">
+                    <Menu
+                        onClick={this.handleClick}
+                        selectedKeys={[current]}
+                        mode="horizontal">
+
+                        <Menu.Item key="jobs">
                             Jobs
-                            <a href="https://ant.design" target="_blank" rel="noopener noreferrer" />
+                            {<Link to="jobs" />}
+                        </Menu.Item>
+                        <Menu.Item key="companies">
+                            Companies
+                            {<Link to="companies" />}
                         </Menu.Item>
                     </Menu>
                 </div>
