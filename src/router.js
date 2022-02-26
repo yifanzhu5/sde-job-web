@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./page/App/home";
 import PageError from "./page/App/404";
 
@@ -19,7 +19,6 @@ const routes = [
         path: "/*",
         component: PageError
     },
-
 ];
 
 

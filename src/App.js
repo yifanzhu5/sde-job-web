@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ConfigProvider } from "antd";      // general config antd
-// import zhCN from "antd/es/locale/zh_CN";
 // import store from "./store";
 import Router from "./router";
 

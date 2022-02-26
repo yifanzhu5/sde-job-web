@@ -1,5 +1,4 @@
 import { Result, Button } from 'antd';
-import { BrowserRouter, Switch, Link } from "react-router-dom";
 
 
 const PageError = (props) => {
