@@ -1,16 +1,8 @@
-// import
-
-// const { Header } = Layout;
-
-import {PageHeader, Tooltip} from 'antd';
-import {Menu} from 'antd';
-import {MailOutlined, AppstoreOutlined, SettingOutlined, LinkOutlined} from '@ant-design/icons';
 import React from "react";
-import { Avatar } from 'antd';
+import { Avatar,Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom'
 
-const {SubMenu} = Menu;
 
 class CustomHeader extends React.Component {
 
@@ -28,7 +20,7 @@ class CustomHeader extends React.Component {
         return (
             <div class={"custom-header"}>
                 <div class={"custom-header-left"}>
-                    CASDEJOBS
+                    CA-SDE-JOBS
                 </div>
                 <div class={"custom-header-mid"}>
                     <Menu

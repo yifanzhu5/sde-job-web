@@ -1,9 +1,8 @@
 import React from "react";
 import Qs from 'qs'
-import { Form, Input, Button, Checkbox, Divider, Pagination, Space, BackTop } from 'antd';
+import { Form, Input, Button, Checkbox, Divider, Pagination, Space } from 'antd';
 
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 // import {request} from '../../../utils/request'
 
 import JobCard from "../../../components/job-show/jobCard";
@@ -28,7 +27,7 @@ const cityOptions = [
   { label: 'Others', value: 'others' }
 ];
 
-class Home extends React.Component {
+class Jobs extends React.Component {
 
   constructor(props) {
     super(props);
@@ -110,8 +109,8 @@ class Home extends React.Component {
       onFinish={this.getData}
     >
       <Form.Item
-        label="cities"
-        name="cities"
+        label="City"
+        name="City"
       >
         <Checkbox.Group
           options={cityOptions}
@@ -216,4 +215,4 @@ class Home extends React.Component {
   }
 };
 
-export default Home;
+export default Jobs;

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./page/App/home";
+import Jobs from "./page/App/jobs";
 import PageError from "./page/App/404";
 
 import CustomHeader from './components/layout/header.js';
@@ -9,11 +9,11 @@ import CustomFooter from './components/layout/footer.js';
 const routes = [
     {
         path: "/jobs",
-        component: Home
+        component: Jobs
     },
     {
         path: "/companies",
-        component: Home
+        component: Jobs
     },
     {
         path: "/*",

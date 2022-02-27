@@ -13,7 +13,7 @@ const PageError = (props) => {
       subTitle="Sorry, the page you visited does not exist."
       extra={
         <Button onClick={handleClick} type="primary">
-          Back Home
+          Back Jobs
         </Button>
       }
     />
