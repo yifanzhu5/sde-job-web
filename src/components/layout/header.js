@@ -39,7 +39,11 @@ class CustomHeader extends React.Component {
                     </Menu>
                 </div>
                 <div class={"custom-header-right"}>
-                    <Avatar size="small" icon={<UserOutlined />} />
+                    <a href="http://localhost:3000/login">
+                        <button type="button">
+                            Login
+                        </button>
+                    </a>
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Jobs from "./page/App/jobs";
+import LoginRegister from "./page/App/login";
 import PageError from "./page/App/404";
 
 import CustomHeader from './components/layout/header.js';
@@ -14,6 +15,14 @@ const routes = [
     {
         path: "/companies",
         component: Jobs
+    },
+    {
+        path: "/login",
+        component: LoginRegister
+    },
+    {
+        path: "/register",
+        component: LoginRegister
     },
     {
         path: "/*",
