@@ -1,5 +1,6 @@
-import "../../../components/login/style.scss";
 import React from "react";
+import { useState, useEffect } from "react";
+import "../../../style/components/login.scss";
 import "../../../style/pages/LoginRegister.scss";
 import { Login } from "../../../components/login/login";
 import { Register } from "../../../components/login/register";
@@ -8,7 +9,7 @@ class LoginRegister extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogginActive: true
+            isLoginActive: true
         };
     }
 
@@ -18,30 +19,31 @@ class LoginRegister extends React.Component {
     }
 
     changeState() {
-        const { isLogginActive } = this.state;
+        const { isLoginActive } = this.state;
 
-        if (isLogginActive) {
+        if (isLoginActive) {
             this.rightSide.classList.remove("right");
             this.rightSide.classList.add("left");
         } else {
             this.rightSide.classList.remove("left");
             this.rightSide.classList.add("right");
         }
-        this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
+        this.setState(prevState => ({ isLoginActive: !prevState.isLoginActive }));
     }
 
+
     render() {
-        const { isLogginActive } = this.state;
-        const current = isLogginActive ? "Register" : "Login";
-        const currentActive = isLogginActive ? "login" : "register";
+        const { isLoginActive } = this.state;
+        const current = isLoginActive ? "Register" : "Login";
+        const currentActive = isLoginActive ? "login" : "register";
         return (
             <div className="App">
                 <div className="login">
                     <div className="container" ref={ref => (this.container = ref)}>
-                        {isLogginActive && (
+                        {isLoginActive && (
                             <Login containerRef={ref => (this.current = ref)} />
                         )}
-                        {!isLogginActive && (
+                        {!isLoginActive && (
                             <Register containerRef={ref => (this.current = ref)} />
                         )}
                     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar,Menu } from 'antd';
+import { Avatar,Menu, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom'
 
@@ -40,9 +40,9 @@ class CustomHeader extends React.Component {
                 </div>
                 <div class={"custom-header-right"}>
                     <a href="http://localhost:3000/login">
-                        <button type="button">
+                        <Button type="button">
                             Login
-                        </button>
+                        </Button>
                     </a>
                 </div>
             </div>

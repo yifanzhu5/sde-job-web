@@ -21,10 +21,6 @@ const routes = [
         component: LoginRegister
     },
     {
-        path: "/register",
-        component: LoginRegister
-    },
-    {
         path: "/*",
         component: PageError
     },
