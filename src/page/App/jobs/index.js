@@ -85,7 +85,7 @@ class Jobs extends React.Component {
       search: search_str
     }
     this.props.history.push(ppath)
-    axios.post('http://localhost:8080/api/v1/jobs/search', params).then((res) => {
+    axios.post('api/v1/jobs/search', params).then((res) => {
       this.setState({
         'jobs': res.data.jobs,
         'count': res.data.count,

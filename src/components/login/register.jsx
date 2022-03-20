@@ -2,43 +2,44 @@ import React from "react";
 import { Form } from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import axios from "axios";
+import Qs from 'qs'
 
 export class Register extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    // render() {
-    //     return (
-    //             <div className="base-container" ref={this.props.containerRef}>
-    //                 <div className="header">Register</div>
-    //                 <div className="content">
-    //                     <div className="image">
-    //                         <img src={loginImg}/>
-    //                     </div>
-    //                     <div className="form">
-    //                         <div className="form-group">
-    //                             <label htmlFor="userId">UserId</label>
-    //                             <input type="text" name="userId" placeholder="userId"/>
-    //                         </div>
-    //                         <div className="form-group">
-    //                             <label htmlFor="email">Email</label>
-    //                             <input type="text" name="email" placeholder="email"/>
-    //                         </div>
-    //                         <div className="form-group">
-    //                             <label htmlFor="password">Password</label>
-    //                             <input type="text" name="password" placeholder="password"/>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //                 <div className="footer">
-    //                     <button type="button" className="btn">
-    //                         Register
-    //                     </button>
-    //                 </div>
-    //             </div>
-    //     );
-    // }
+    state = {
+        username: "",
+        email: "",
+        password: "",
+    };
+
+    handleClick = () => {
+        let userInfo = new FormData();
+        userInfo.append('username',this.state.username);
+        userInfo.append('email',this.state.email);
+        userInfo.append('password',this.state.password);
+        axios.post(`api/v1/register`, Qs.stringify({userInfo}))
+            .then((res) => {
+                const [isValidUsername, isValidEmail] = res.data.isRegistered
+                if (isValidUsername && isValidEmail) {
+                    alert("registration success! Redirect to login page after 3 seconds!")
+                    setTimeout(function(){ window.location = "http://localhost:3000/login"; },3000);
+                } else {
+                    if (!isValidUsername && !isValidEmail) {
+                        alert("The username and email address are already taken!")
+                    } else if (!isValidUsername) {
+                        alert("The username is already taken!")
+                    } else if (!isValidEmail) {
+                        alert("The email is already taken!")
+                    }
+                }
+        }).catch((data) => {
+            console.log('error', data)
+        })
+    }
 
     render() {
         return (
@@ -50,29 +51,28 @@ export class Register extends React.Component {
                     </div>
                     <Form className="form">
                         <Form.Item
-                            // className="form-group"
-                            name="userId"
+                            name="username"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your userId!',
+                                    message: 'Please input your username!',
                                 },
                                 {
                                     max: 20,
-                                    message: 'UserId must be at most 20 characters in length!',
+                                    message: 'Username must be at most 20 characters in length!',
                                 },
                                 {
                                     pattern: /^[A-Za-z\d_]+$/,
-                                    message: 'UserId can only contains letters, numbers and underscores',
+                                    message: 'Username can only contains letters, numbers and underscores',
                                 },
                             ]}
                         >
-                            {/*<label htmlFor="userId">UserId: </label>*/}
                             <input
                                 prefix={<UserOutlined className="site-form-item-icon" />}
-                                // type="text"
-                                // name="userId"
-                                placeholder="userId"
+                                placeholder="username"
+                                onChange={(e) => {
+                                    this.setState({ username: e.target.value });
+                                }}
                             />
                         </Form.Item>
                         <Form.Item
@@ -92,6 +92,9 @@ export class Register extends React.Component {
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="email"
                                 placeholder="email"
+                                onChange={(e) => {
+                                    this.setState({ email: e.target.value });
+                                }}
                             />
                         </Form.Item>
                         <Form.Item
@@ -111,21 +114,27 @@ export class Register extends React.Component {
                                     message: 'Password must be at least 6 characters in length!',
                                 },                                {
                                     pattern: /^[A-Za-z\d_]+$/,
-                                    message: 'UserId can only contains letters, numbers and underscores',
+                                    message: 'Username can only contains letters, numbers and underscores',
                                 },
                             ]}
                         >
-                            {/*<label htmlFor="password">Password: </label>*/}
                             <input
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="password"
+                                onChange={(e) => {
+                                    this.setState({ password: e.target.value });
+                                }}
                             />
                         </Form.Item>
                     </Form>
                 </div>
                 <div className="footer">
-                    <button type="button" className="btn">
+                    <button
+                        type="button"
+                        className="btn"
+                        onClick= {this.handleClick}
+                    >
                         Register
                     </button>
                 </div>
@@ -133,3 +142,5 @@ export class Register extends React.Component {
         );
     }
 }
+
+export default Register

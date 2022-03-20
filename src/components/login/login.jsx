@@ -2,10 +2,36 @@ import React from "react";
 import { Form } from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import axios from "axios";
+import Qs from "qs";
 
 export class Login extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    state = {
+        username: "",
+        password: "",
+    };
+
+    handleClick = () => {
+        let userInfo = new FormData();
+        userInfo.append('username',this.state.username);
+        userInfo.append('password',this.state.password);
+        axios.post(`api/v1/login`, Qs.stringify({userInfo}))
+            .then((res) => {
+                const isMatch = res.data.isMatch
+                if (isMatch) {
+                    // alert("Login success! Redirect to home page after 3 seconds!")
+                    // setTimeout(function(){ window.location = "http://localhost:3000/jobs"; },3000);
+                    localStorage.setItem('token', res.data.token);
+                } else {
+                    alert("Incorrect username or password!")
+                }
+            }).catch((data) => {
+            console.log('error', data)
+        })
     }
 
     render() {
@@ -18,25 +44,23 @@ export class Login extends React.Component {
                         </div>
                         <Form className="form">
                             <Form.Item
-                                // className="form-group"
-                                name="userId"
+                                name="username"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your userId!',
+                                        message: 'Please input your username!',
                                     },
                                 ]}
                             >
-                                {/*<label htmlFor="userId">UserId: </label>*/}
                                 <input
                                     prefix={<UserOutlined className="site-form-item-icon" />}
-                                    // type="text"
-                                    // name="userId"
-                                    placeholder="userId"
+                                    placeholder="username"
+                                    onChange={(e) => {
+                                        this.setState({ username: e.target.value });
+                                    }}
                                 />
                             </Form.Item>
                             <Form.Item
-                                // className="form-group"
                                 name="password"
                                 rules={[
                                     {
@@ -45,17 +69,23 @@ export class Login extends React.Component {
                                     },
                                 ]}
                             >
-                                {/*<label htmlFor="password">Password: </label>*/}
                                 <input
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="password"
+                                    onChange={(e) => {
+                                        this.setState({ password: e.target.value });
+                                    }}
                                 />
                             </Form.Item>
                         </Form>
                     </div>
                     <div className="footer">
-                        <button type="button" className="btn">
+                        <button
+                            type="button"
+                            className="btn"
+                            onClick= {this.handleClick}
+                        >
                             Login
                         </button>
                     </div>
