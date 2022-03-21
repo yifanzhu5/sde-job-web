@@ -1,9 +1,10 @@
 import React from "react";
-import { Form } from 'antd';
+import {Form} from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
 import Qs from 'qs'
+import md5 from 'md5';
 
 export class Register extends React.Component {
     constructor(props) {
@@ -18,15 +19,17 @@ export class Register extends React.Component {
 
     handleClick = () => {
         let userInfo = new FormData();
-        userInfo.append('username',this.state.username);
-        userInfo.append('email',this.state.email);
-        userInfo.append('password',this.state.password);
+        userInfo.append('username', this.state.username);
+        userInfo.append('email', this.state.email);
+        userInfo.append('password', this.state.password);
         axios.post(`api/v1/register`, Qs.stringify({userInfo}))
             .then((res) => {
                 const [isValidUsername, isValidEmail] = res.data.isRegistered
                 if (isValidUsername && isValidEmail) {
                     alert("registration success! Redirect to login page after 3 seconds!")
-                    setTimeout(function(){ window.location = "http://localhost:3000/login"; },3000);
+                    setTimeout(function () {
+                        window.location = "http://localhost:3000/login";
+                    }, 3000);
                 } else {
                     if (!isValidUsername && !isValidEmail) {
                         alert("The username and email address are already taken!")
@@ -36,7 +39,7 @@ export class Register extends React.Component {
                         alert("The email is already taken!")
                     }
                 }
-        }).catch((data) => {
+            }).catch((data) => {
             console.log('error', data)
         })
     }
@@ -68,10 +71,10 @@ export class Register extends React.Component {
                             ]}
                         >
                             <input
-                                prefix={<UserOutlined className="site-form-item-icon" />}
+                                prefix={<UserOutlined className="site-form-item-icon"/>}
                                 placeholder="username"
                                 onChange={(e) => {
-                                    this.setState({ username: e.target.value });
+                                    this.setState({username: e.target.value});
                                 }}
                             />
                         </Form.Item>
@@ -89,11 +92,11 @@ export class Register extends React.Component {
                             ]}
                         >
                             <input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                prefix={<LockOutlined className="site-form-item-icon"/>}
                                 type="email"
                                 placeholder="email"
                                 onChange={(e) => {
-                                    this.setState({ email: e.target.value });
+                                    this.setState({email: e.target.value});
                                 }}
                             />
                         </Form.Item>
@@ -112,18 +115,19 @@ export class Register extends React.Component {
                                 {
                                     min: 6,
                                     message: 'Password must be at least 6 characters in length!',
-                                },                                {
+                                },
+                                {
                                     pattern: /^[A-Za-z\d_]+$/,
                                     message: 'Username can only contains letters, numbers and underscores',
                                 },
                             ]}
                         >
                             <input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                prefix={<LockOutlined className="site-form-item-icon"/>}
                                 type="password"
                                 placeholder="password"
                                 onChange={(e) => {
-                                    this.setState({ password: e.target.value });
+                                    this.setState({password: md5(e.target.value)});
                                 }}
                             />
                         </Form.Item>
@@ -133,7 +137,7 @@ export class Register extends React.Component {
                     <button
                         type="button"
                         className="btn"
-                        onClick= {this.handleClick}
+                        onClick={this.handleClick}
                     >
                         Register
                     </button>

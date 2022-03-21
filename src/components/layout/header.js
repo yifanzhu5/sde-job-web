@@ -1,8 +1,9 @@
 import React from "react";
-import { Avatar,Menu, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import {Avatar, Menu, Button} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom'
 import axios from "axios";
+import Qs from "qs";
 
 
 class CustomHeader extends React.Component {
@@ -30,31 +31,40 @@ class CustomHeader extends React.Component {
     }
 
     handleClick = e => {
-        this.setState({ current: e.key },()=>{
+        this.setState({current: e.key}, () => {
         });
     };
 
+    handleLogout = () => {
+        axios.post(`api/v1/logout`).then((res) => {
+            if (res.data.message == "logout succeed") {
+                localStorage.clear();
+                this.props.history.push("/jobs")
+            }
+        }).catch((data) => {
+            console.log('error', data)
+        })
+    }
+
     render() {
-        const { current } = this.state;
+        const {current} = this.state;
 
         let welcome
-        if(this.state.user) {
+        if (this.state.user) {
             welcome = (
-                <h5>Hi {this.state.username}</h5>
+                <h5>Hi {this.state.user.username}</h5>
             )
         }
 
         let button
         if (this.props.user) {
             button = (
-                <a href="http://localhost:3000/login">
-                    <Button
-                        type="button"
-                        onClick={() => localStorage.clear()}
-                    >
-                        Logout
-                    </Button>
-                </a>
+                <Button
+                    type="button"
+                    onClick={this.handleLogout}
+                >
+                    Logout
+                </Button>
             )
         } else {
             button = (
@@ -79,11 +89,11 @@ class CustomHeader extends React.Component {
 
                         <Menu.Item key="jobs">
                             Jobs
-                            {<Link to="jobs" />}
+                            {<Link to="jobs"/>}
                         </Menu.Item>
                         <Menu.Item key="companies">
                             Companies
-                            {<Link to="companies" />}
+                            {<Link to="companies"/>}
                         </Menu.Item>
                     </Menu>
                 </div>
