@@ -19,9 +19,8 @@
 #         dockerfile: Dockerfile
 #         tags: latest
 
-#         stages:
-- deploy
-
+stages:
+  - deploy
 docker-deploy:
   stage: deploy
   # 执行Job内容
