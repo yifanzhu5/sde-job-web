@@ -19,15 +19,9 @@ export class Register extends React.Component {
 
     handleClick = () => {
         let userInfo = new FormData();
-        console.log('username', this.state.username);
-        console.log('email', this.state.email);
-        console.log('password', this.state.password);
         userInfo.append('username', this.state.username);
         userInfo.append('email', this.state.email);
         userInfo.append('password', this.state.password);
-        for (var p of  Qs.stringify({userInfo})) {
-            console.log(p);
-        }
         axios.post(`api/v1/register`,
             userInfo,
             {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
@@ -94,7 +88,7 @@ export class Register extends React.Component {
                                     message: 'Please input your email!',
                                 },
                                 {
-                                    pattern: /^\w+@\w+\.(com)$|(cn)$/,
+                                    pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/,
                                     message: 'Please input valid email address!',
                                 },
                             ]}

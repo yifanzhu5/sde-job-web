@@ -20,7 +20,6 @@ export class Login extends React.Component {
         let userInfo = new FormData();
         userInfo.append('username', this.state.username);
         userInfo.append('password', this.state.password);
-        console.log('userInfo', userInfo)
         axios.post(`api/v1/login`,
             userInfo,
             {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
