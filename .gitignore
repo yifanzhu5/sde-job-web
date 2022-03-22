@@ -1,5 +1,3 @@
-#self-add
-package-lock.json
 
 # from https://github.com/facebook/react/blob/main/.gitignore
 .DS_STORE
