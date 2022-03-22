@@ -13,7 +13,8 @@ class CustomHeader extends React.Component {
     componentDidMount() {
         const config = {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
+                // Authorization: 'Bearer ' + localStorage.getItem('token')
+                Authorization: localStorage.getItem('token')
             }
         }
         axios.get('/api/v1/user', config).then(
@@ -37,7 +38,7 @@ class CustomHeader extends React.Component {
         axios.post(`api/v1/logout`).then((res) => {
             if (res.data.message === "logout succeed") {
                 localStorage.clear();
-                this.props.history.push("/jobs")
+                window.location.href = "http://localhost:3000/jobs"
             }
         }).catch((data) => {
             console.log('error', data)

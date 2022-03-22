@@ -27,7 +27,7 @@ export class Login extends React.Component {
                 const isMatch = res.data.isMatch
                 if (isMatch) {
                     localStorage.setItem('token', res.data.token);
-                    this.props.history.push("/jobs")
+                    window.location.href = "http://localhost:3000/jobs"
                 } else {
                     alert("Incorrect username or password!")
                 }
