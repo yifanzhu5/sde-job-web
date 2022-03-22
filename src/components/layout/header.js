@@ -13,8 +13,7 @@ class CustomHeader extends React.Component {
     componentDidMount() {
         const config = {
             headers: {
-                // Authorization: 'Bearer ' + localStorage.getItem('token')
-                Authorization: localStorage.getItem('token')
+                token: localStorage.getItem('token')
             }
         }
         axios.get('/api/v1/user', config).then(
@@ -51,12 +50,14 @@ class CustomHeader extends React.Component {
         let welcome
         if (this.state.user) {
             welcome = (
-                <h5>Hi {this.state.user.username}</h5>
+                <div>
+                    Hi {this.state.user.username}!
+                </div>
             )
         }
 
         let button
-        if (this.props.user) {
+        if (this.state.user) {
             button = (
                 <Button
                     type="button"
