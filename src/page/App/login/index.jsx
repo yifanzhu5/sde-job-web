@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import "../../../style/components/login.scss";
 import "../../../style/pages/LoginRegister.scss";
 import { Login } from "../../../components/login/login";

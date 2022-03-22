@@ -1,9 +1,7 @@
 import React from "react";
-import {Avatar, Menu, Button} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
+import {Menu, Button} from 'antd';
 import {Link} from 'react-router-dom'
 import axios from "axios";
-import Qs from "qs";
 
 
 class CustomHeader extends React.Component {
@@ -37,7 +35,7 @@ class CustomHeader extends React.Component {
 
     handleLogout = () => {
         axios.post(`api/v1/logout`).then((res) => {
-            if (res.data.message == "logout succeed") {
+            if (res.data.message === "logout succeed") {
                 localStorage.clear();
                 this.props.history.push("/jobs")
             }
