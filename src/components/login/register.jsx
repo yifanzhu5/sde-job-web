@@ -1,9 +1,8 @@
 import React from "react";
-import {Form} from 'antd';
+import {Form, message} from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
-import Qs from 'qs'
 import md5 from 'md5';
 
 export class Register extends React.Component {
@@ -28,17 +27,29 @@ export class Register extends React.Component {
             .then((res) => {
                 const [isValidUsername, isValidEmail] = res.data.isRegistered
                 if (isValidUsername && isValidEmail) {
-                    alert("registration success! Redirect to login page after 3 seconds!")
+                    message.success(
+                        "Registration success! Redirect to login page after 3 seconds!",
+                        3,
+                        onclose);
                     setTimeout(function () {
                         window.location = "http://localhost:3000/login";
                     }, 3000);
                 } else {
                     if (!isValidUsername && !isValidEmail) {
-                        alert("The username and email address are already taken!")
+                        message.error(
+                            "The username and email address are already taken!",
+                            3,
+                            onclose);
                     } else if (!isValidUsername) {
-                        alert("The username is already taken!")
+                        message.error(
+                            "The username is already taken!",
+                            3,
+                            onclose);
                     } else if (!isValidEmail) {
-                        alert("The email is already taken!")
+                        message.error(
+                            "The email is already taken!",
+                            3,
+                            onclose);
                     }
                 }
             }).catch((data) => {

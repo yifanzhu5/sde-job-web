@@ -1,5 +1,5 @@
 import React from "react";
-import {Form} from 'antd';
+import {Form, message} from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
@@ -22,16 +22,18 @@ export class Login extends React.Component {
         userInfo.append('password', this.state.password);
         axios.post(`api/v1/login`,
             userInfo,
-            {headers:{'Content-Type':'application/x-www-form-urlencoded'}})
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
             .then((res) => {
                 const isMatch = res.data.isMatch
                 if (isMatch) {
                     localStorage.setItem('token', res.data.token);
                     window.location.href = "http://localhost:3000/jobs"
-                } else {
-                    alert("Incorrect username or password!")
                 }
             }).catch((data) => {
+            message.error(
+                "Incorrect username or password!",
+                3,
+                onclose);
             console.log('error', data)
         })
     }

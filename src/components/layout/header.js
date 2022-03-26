@@ -16,6 +16,7 @@ class CustomHeader extends React.Component {
                 token: localStorage.getItem('token')
             }
         }
+        //TODO：增加error处理
         axios.get('/api/v1/user', config).then(
             res => {
                 this.setState({
