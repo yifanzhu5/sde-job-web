@@ -15,9 +15,14 @@ import axios from "axios";
 
 class JobCard extends React.Component {
     handleLike = () => {
+        let token = localStorage.getItem('token')
+        if (token == null) {
+            message.error('Please login!', 3, onclose);
+            return
+        }
         const config = {
             headers: {
-                token: localStorage.getItem('token')
+                'token': token
             }
         }
         console.log('currentColor: ', getTwoToneColor())
@@ -36,6 +41,7 @@ class JobCard extends React.Component {
                 setTwoToneColor('#1890ff')
             }
         }).catch((data) => {
+            message.error('Login expired. Please login!', 3, onclose);
             console.log('error', data)
         })
     }
