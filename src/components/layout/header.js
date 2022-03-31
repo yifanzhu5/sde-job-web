@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu, Button} from 'antd';
+import {Menu, Button, Dropdown} from 'antd';
 import {Link} from 'react-router-dom'
 import axios from "axios";
 
@@ -11,9 +11,13 @@ class CustomHeader extends React.Component {
     };
 
     componentDidMount() {
+        let token = localStorage.getItem('token');
+        if (token == null) {
+            return
+        }
         const config = {
             headers: {
-                token: localStorage.getItem('token')
+                'token': token
             }
         }
         axios.get('/api/v1/user', config).then(
@@ -46,25 +50,27 @@ class CustomHeader extends React.Component {
 
     render() {
         const {current} = this.state;
-
-        let welcome
-        if (this.state.user) {
-            welcome = (
-                <div>
-                    Hi {this.state.user.username}!
-                </div>
-            )
-        }
+        const userMenu = (
+            <Menu>
+                <Menu.Item>
+                    <a  href='http://localhost:3000/profile'>
+                        Profile
+                    </a>
+                </Menu.Item>
+                <Menu.Item>
+                    <div type="button" onClick={this.handleLogout}>
+                        Logout
+                    </div>
+                </Menu.Item>
+            </Menu>
+        );
 
         let button
         if (this.state.user) {
             button = (
-                <Button
-                    type="button"
-                    onClick={this.handleLogout}
-                >
-                    Logout
-                </Button>
+                <Dropdown overlay={userMenu} trigger={['click']}>
+                    <Button>{this.state.user.username}</Button>
+                </Dropdown>
             )
         } else {
             button = (
@@ -98,7 +104,6 @@ class CustomHeader extends React.Component {
                     </Menu>
                 </div>
                 <div class={"custom-header-right"}>
-                    {welcome}
                     {button}
                 </div>
             </div>

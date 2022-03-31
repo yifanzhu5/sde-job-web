@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Jobs from "./page/App/jobs";
 import LoginRegister from "./page/App/login";
+import Profile from "./page/App/profile";
 import PageError from "./page/App/404";
 
 import CustomHeader from './components/layout/header.js';
@@ -19,6 +20,10 @@ const routes = [
     {
         path: "/login",
         component: LoginRegister
+    },
+    {
+        path: "/profile",
+        component: Profile
     },
     {
         path: "/*",

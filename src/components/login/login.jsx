@@ -3,7 +3,6 @@ import {Form, message} from 'antd';
 import loginImg from "../../assets/login.svg";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
-import Qs from "qs";
 import md5 from 'md5';
 
 export class Login extends React.Component {

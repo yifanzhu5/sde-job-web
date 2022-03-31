@@ -1,10 +1,7 @@
 import React from "react";
 import Qs from 'qs'
 import {Form, Input, Button, Checkbox, Divider, Pagination, Space} from 'antd';
-
 import axios from 'axios'
-// import {request} from '../../../utils/request'
-
 import JobCard from "../../../components/job-show/jobCard";
 
 const {Search} = Input;
@@ -42,7 +39,31 @@ class Jobs extends React.Component {
         companys: [],
         has_remote: null,
         jobs: [],
+        favJobs: []
     };
+
+    updateFavList() {
+        let token = localStorage.getItem('token')
+        if (token == null) {
+            return
+        }
+        const config = {
+            headers: {
+                'token': token
+            }
+        }
+        axios.get('/api/v1/user', config).then(
+            res => {
+                console.log('res data: ', res.data)
+                this.setState({
+                    favJobs: res.data.favJobs
+                });
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
 
     getRouteData = () => {
         const query = new URLSearchParams(this.props.location.search)
@@ -90,6 +111,7 @@ class Jobs extends React.Component {
                 'jobs': res.data.jobs,
                 'count': res.data.count,
             })
+            this.updateFavList()
             document.documentElement.scrollTo(0, 0)
         }).catch((data) => {
             console.log('error', data)
@@ -142,10 +164,19 @@ class Jobs extends React.Component {
     jobCards(page_size) {
         return <div class="job-cards"><Space size={"large"} direction={"vertical"}>
             {this.state.jobs.map((item) => {
-                // locations cities
+                let isLike = false
+                console.log('favJobs: ', this.state.favJobs);
+                if (this.state.favJobs !=undefined) {
+                    for (let i = 0; i < this.state.favJobs.length; i++) {
+                        if (item.id == this.state.favJobs[i]) {
+                            isLike = true
+                        }
+                    }
+                }
                 return <JobCard
                     id={item.id}
                     title={item.title}
+                    isLike={isLike}
                     company={item.company}
                     cities={item.city}
                     from_url={item.from_url}
@@ -169,13 +200,6 @@ class Jobs extends React.Component {
             />
         </div>
     }
-
-    // componentWillReceiveProps(nextProps){
-
-    //   if(nextProps.location.search!=this.props.location.search){
-    //     console.log('will', nextProps)
-    //   }
-    // }
 
     componentDidMount() {
         this.getRouteData()
