@@ -10,6 +10,7 @@ COPY package-lock.json ./
 RUN npm i
 # RUN npm install -g http-server
 
+
 # RUN npm run build
 # add app
 COPY . ./
