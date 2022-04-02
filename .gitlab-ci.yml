@@ -25,7 +25,7 @@ docker-deploy:
     - docker build -t sde-job .
     - if [ $(docker ps -aq --filter name = sde-job ) ]; then docker rm -f sde-job;fi
 
-    - docker run -d -p 3000:3000 --name sde-job  sde-job
+    - docker run -d -p 3000:80 --name sde-job  sde-job
 
     - echo "This job deploys something. It will only run when all jobs in the"
     - echo "test stage complete."
