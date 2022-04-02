@@ -27,8 +27,8 @@ docker-deploy:
 
     - docker run -d -p 3000:80 --name sde-job sde-job
 
-    - echo "This job deploys something. It will only run when all jobs in the"
-    - echo "test stage complete."
+    # - echo "This job deploys something. It will only run when all jobs in the"
+    # - echo "test stage complete."
   tags:
     # 执行Job的服务器
     - latest
