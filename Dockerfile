@@ -14,4 +14,5 @@ COPY . ./
 # start app
 EXPOSE 3000
 CMD http-server ./build -p 3000
+
 # CMD ["npm", "start"]
