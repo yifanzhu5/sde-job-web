@@ -7,6 +7,7 @@ import PageError from "./page/App/404";
 
 import CustomHeader from './components/layout/header.js';
 import CustomFooter from './components/layout/footer.js';
+import { Redirect } from "react-router-dom";
 
 const routes = [
     {
@@ -38,6 +39,9 @@ class Router extends React.Component {
             <BrowserRouter>
                 <CustomHeader></ CustomHeader>
                 <Switch>
+                    <Route exact path="/">
+                        <Redirect to='/jobs' />
+                    </Route>
                     {routes.map((route) => (
                         <Route {...route} />
                     ))}

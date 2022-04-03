@@ -165,7 +165,7 @@ class Jobs extends React.Component {
         return <div class="job-cards"><Space size={"large"} direction={"vertical"}>
             {this.state.jobs.map((item) => {
                 let isLike = false
-                console.log('favJobs: ', this.state.favJobs);
+                // console.log('favJobs: ', this.state.favJobs);
                 if (this.state.favJobs !=undefined) {
                     for (let i = 0; i < this.state.favJobs.length; i++) {
                         if (item.id == this.state.favJobs[i]) {
