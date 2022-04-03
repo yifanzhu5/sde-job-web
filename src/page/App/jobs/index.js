@@ -160,6 +160,8 @@ class Jobs extends React.Component {
             </Form.Item>
         </Form>
     };
+    
+
 
     jobCards(page_size) {
         return <div class="job-cards"><Space size={"large"} direction={"vertical"}>
@@ -177,6 +179,7 @@ class Jobs extends React.Component {
                     id={item.id}
                     title={item.title}
                     isLike={isLike}
+                    changeLike={()=>{this.updateFavList()}}
                     company={item.company}
                     cities={item.city}
                     from_url={item.from_url}

@@ -1,24 +1,20 @@
 import React from 'react';
 
 
-import {Card, Tooltip, Space, message} from 'antd';
+import { Card, Tooltip, Space, message } from 'antd';
 import {
     LinkOutlined,
     BankOutlined,
     FieldTimeOutlined,
     EnvironmentOutlined,
-    HeartTwoTone,
-    getTwoToneColor,
-    setTwoToneColor
+    HeartOutlined,
 } from '@ant-design/icons';
 import axios from "axios";
 
 class JobCard extends React.Component {
-    initializeLike = () => {
-        setTwoToneColor(this.props.isLike ? '#F00' : '#1890ff');
-    }
 
-    handleLike = () => {
+
+    handleAddLike = () => {
         let token = localStorage.getItem('token')
         if (token == null) {
             message.error('Please login!', 3, onclose);
@@ -29,20 +25,37 @@ class JobCard extends React.Component {
                 'token': token
             }
         }
-        let isAdd = true
-        if (getTwoToneColor() == '#F00') {
-            isAdd = false
-        }
         const params = {
             "id": this.props.id,
-            "isAdd": isAdd
+            "isAdd": true
         }
         axios.post(`/api/v1/updateFavJobs`, params, config).then((res) => {
-            if (isAdd) {
-                setTwoToneColor('#F00')
-            } else {
-                setTwoToneColor('#1890ff')
+            // this.isLike = true
+            this.props.changeLike()
+        }).catch((data) => {
+            message.error('Login expired. Please login!', 3, onclose);
+            console.log('error', data)
+        })
+    }
+
+    handleNoLike = () => {
+        let token = localStorage.getItem('token')
+        if (token == null) {
+            message.error('Please login!', 3, onclose);
+            return
+        }
+        const config = {
+            headers: {
+                'token': token
             }
+        }
+
+        const params = {
+            "id": this.props.id,
+            "isAdd": false
+        }
+        axios.post(`/api/v1/updateFavJobs`, params, config).then((res) => {
+            this.props.changeLike()
         }).catch((data) => {
             message.error('Login expired. Please login!', 3, onclose);
             console.log('error', data)
@@ -50,7 +63,8 @@ class JobCard extends React.Component {
     }
 
     render() {
-        this.initializeLike();
+        let isLike = this.props.isLike;
+
         return (
             <Card hoverable="true">
                 <div class={"job-card-head"}>
@@ -61,13 +75,19 @@ class JobCard extends React.Component {
                         </a>
                         <div class={"job-card-head-link-operation"}>
                             <Tooltip title="like">
-                                <HeartTwoTone
-                                    onClick={this.handleLike}
-                                />
+                                {isLike ?
+                                    <HeartOutlined
+                                        onClick={this.handleNoLike}
+                                        style={{ color: '#F00' }} /> :
+                                    <HeartOutlined
+                                        onClick={this.handleAddLike}
+                                        style={{ color: '#08C' }}
+                                    />
+                                }
                             </Tooltip>
                             <Tooltip title="Apply">
                                 <a target="_blank" href={this.props.apply_url}>
-                                    <LinkOutlined/>
+                                    <LinkOutlined />
                                 </a>
                             </Tooltip>
                         </div>
@@ -78,13 +98,13 @@ class JobCard extends React.Component {
                             <Space size="small">
                                 <Tooltip title="company">
                                     <div>
-                                        <BankOutlined/>
+                                        <BankOutlined />
                                         {this.props.company}
                                     </div>
                                 </Tooltip>
                                 <Tooltip title="Cities">
                                     <div>
-                                        <EnvironmentOutlined/>
+                                        <EnvironmentOutlined />
                                         {this.props.cities}
                                     </div>
                                 </Tooltip>
@@ -93,7 +113,7 @@ class JobCard extends React.Component {
                         {(this.props.publish_time != "") &&
                             <Tooltip title="Publish time">
                                 <div>
-                                    <FieldTimeOutlined/>
+                                    <FieldTimeOutlined />
                                     {new Date(this.props.publish_time * 1000).toLocaleDateString()}
                                 </div>
                             </Tooltip>}
@@ -101,7 +121,7 @@ class JobCard extends React.Component {
                 </div>
                 <a className="job-card" target="_blank" href={this.props.from_url}>
                     <div className="job-card-content">
-                        <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+                        <div dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
                     </div>
                 </a>
             </Card>
