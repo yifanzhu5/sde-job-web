@@ -43,6 +43,30 @@ class Profile extends React.Component {
         )
     }
 
+    updateFavList() {
+        let token = localStorage.getItem('token')
+        if (token == null) {
+            return
+        }
+        const config = {
+            headers: {
+                'token': token
+            }
+        }
+        axios.get('/api/v1/user', config).then(
+            res => {
+                console.log('res data: ', res.data)
+                this.setState({
+                    favJobs: res.data.favJobs
+                });
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+
     getData = () => {
         const params = {
             "ids": this.state.favJobs,
@@ -77,6 +101,7 @@ class Profile extends React.Component {
                     cities={item.city}
                     from_url={item.from_url}
                     apply_url={item.apply_url}
+                    changeLike={()=>{this.updateFavList()}}
                     publish_time={item.publish_time}
                     content={item.description}
                 />
